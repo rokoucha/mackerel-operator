@@ -86,8 +86,10 @@ func main() {
 	flag.StringVar(&metricsCertKey, "metrics-cert-key", "tls.key", "The name of the metrics server key file.")
 	flag.BoolVar(&enableHTTP2, "enable-http2", false,
 		"If set, HTTP/2 will be enabled for the metrics and webhook servers")
-	flag.StringVar(&secretWatchNamespaces, "secret-watch-namespaces", "", "Comma-separated namespaces for Secret metadata watches; empty watches all namespaces")
-	flag.BoolVar(&disableSecretWatch, "disable-secret-watch", false, "Disable Secret metadata watches; referenced Secrets are still checked during periodic reconciliation")
+	flag.StringVar(&secretWatchNamespaces, "secret-watch-namespaces", "",
+		"Comma-separated namespaces for Secret metadata watches; empty watches all namespaces")
+	flag.BoolVar(&disableSecretWatch, "disable-secret-watch", false,
+		"Disable Secret metadata watches; referenced Secrets are still checked during periodic reconciliation")
 	flag.StringVar(&policy, "policy", "upsert-only", "sync policy: upsert-only or sync")
 	flag.StringVar(&ownerID, "owner-id", "default", "owner identifier for Mackerel monitor ownership markers")
 	flag.IntVar(&hashLength, "hash-length", 7, "short hash length for Mackerel monitor ownership markers")
