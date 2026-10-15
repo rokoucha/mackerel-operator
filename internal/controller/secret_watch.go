@@ -35,7 +35,7 @@ func SecretCacheOptions(namespaces string, disabled bool) (cache.Options, error)
 		return cache.Options{}, nil
 	}
 	allowed := map[string]cache.Config{}
-	for _, value := range strings.Split(namespaces, ",") {
+	for value := range strings.SplitSeq(namespaces, ",") {
 		ns := strings.TrimSpace(value)
 		if errors := validation.IsDNS1123Label(ns); len(errors) != 0 {
 			return cache.Options{}, fmt.Errorf("invalid Secret watch namespace %q: %s", ns, strings.Join(errors, "; "))
