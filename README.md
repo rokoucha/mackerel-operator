@@ -293,3 +293,17 @@ updates the top page by syncing `README.md` to `index.md`.
 
 - `upsert-only` creates and updates Mackerel monitors but does not delete them when CRDs are deleted.
 - `sync` deletes only monitors whose ownership marker matches the current operator owner and source resource.
+
+### Secret watch scope
+
+The fork adds `--secret-watch-namespaces=namespace-a,namespace-b` to scope Secret
+metadata informers while retaining cluster-wide ExternalMonitor discovery.
+`--disable-secret-watch` removes those informers entirely. The two flags are
+mutually exclusive; without either flag, existing cluster-wide behavior remains.
+Secret-backed headers are still refreshed by periodic reconciliation when watches
+are disabled. Secret values continue to use direct API reads rather than the cache.
+
+Grant list/watch only in the selected namespaces, and get only for referenced
+Secret names. With no Secret-backed headers and watches disabled, remove all
+Secret permissions. Metadata-only watches still require RBAC that permits reading
+Secret bodies, so align RBAC with the configured scope.
